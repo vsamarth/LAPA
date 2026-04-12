@@ -33,7 +33,7 @@ We use [uv](https://docs.astral.sh/uv/) for modern, fast dependency management a
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Clone the repository
-git clone https://github.com/LatentActionPretraining/LAPA.git
+git clone https://github.com/vsamarth/LAPA.git
 cd LAPA
 
 # Create virtual environment and install all dependencies (including sub-packages)
