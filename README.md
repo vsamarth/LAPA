@@ -26,14 +26,25 @@
 
 ## Getting Started 
 
+We use [uv](https://docs.astral.sh/uv/) for modern, fast dependency management and workspace organization.
+
 ```bash
-conda create -n lapa python=3.10 -y
-conda activate lapa
+# Install uv if you haven't already
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
 git clone https://github.com/LatentActionPretraining/LAPA.git
-pip install -r requirements.txt 
+cd LAPA
+
+# Create virtual environment and install all dependencies (including sub-packages)
+uv sync
+
+# Activate the environment
+source .venv/bin/activate
+
 mkdir lapa_checkpoints && cd lapa_checkpoints
 ```
-Next, download the model checkpoint from [Huggingface](https://huggingface.co/latent-action-pretraining/LAPA-7B-openx) repository. Download, three files under `lapa_checkpoints` directory. 
+Next, download the model checkpoint from [Huggingface](https://huggingface.co/latent-action-pretraining/LAPA-7B-openx) repository. Download three files under `lapa_checkpoints` directory. 
 
 ```bash
 wget https://huggingface.co/latent-action-pretraining/LAPA-7B-openx/resolve/main/tokenizer.model
@@ -44,7 +55,7 @@ wget https://huggingface.co/latent-action-pretraining/LAPA-7B-openx/resolve/main
 To run LAPA checkpoint which is pretrained on [Open-X Embodiment dataset](https://arxiv.org/abs/2310.08864), run the following command:
 ```bash
 cd ..
-python -m latent_pretraining.inference
+uv run python -m latent_pretraining.inference
 ```
 This will generate the latent action conditioned on the input image and the natural language instruction.
 You can change the input image and the instruction to a custom instance. **Note that the output space is the latent action space (which a space size of $8^4$), which is not the real action space**. To evaluate LAPA, fine-tuning is needed to map the latent space to the real action space (e.g. end-effector).
@@ -92,7 +103,7 @@ where `finetune_data` contains the images of fine-tuning trajectories.
 
 Run the following commands to preprocess the fine-tuning dataset and fine-tune LAPA.
 ```bash
-python data/finetune_preprocess.py --input_path "/path_to_json_file" --output_filename "data/real_finetune.jsonl" --csv_filename "data/real_finetune.csv"
+uv run python data/finetune_preprocess.py --input_path "/path_to_json_file" --output_filename "data/real_finetune.jsonl" --csv_filename "data/real_finetune.csv"
 ./scripts/finetune_real.sh
 ```
 We ran the experiments with 4 80GB-A100 GPUs. To change the number of GPUs being used, change the second index of `--mesh_dim` in the script to the number of GPUs.
@@ -104,25 +115,22 @@ For fine-tuning on SIMPLER rollout trajectories (100 trajecories), run the follo
 
 After finetuning, to deploy the model, run the following command:
 ```bash
-python -m latent_pretraining.deploy --load_checkpoint "params::/path_to_the_finetuned_ckpt" --action_scale_file "data/real_finetune.csv"
+uv run python -m latent_pretraining.deploy --load_checkpoint "params::/path_to_the_finetuned_ckpt" --action_scale_file "data/real_finetune.csv"
 ```
 where `load_checkpoint` includes the path to the finet-uned checkpoint and `action_scale_file` includes the path to the csv file constructed during data preprocessing of fine-tuning dataset.
  
 ## Latent Action Quantization 
 We provide the code for latent action quantization pretraining.
 ```bash
-conda create -n laq python=3.10 -y
-conda activate laq
-cd laq
-pip install -e .
-accelerate launch train_sthv2.py
+# From the root directory, you can run commands for the laq package
+uv run --package laq accelerate launch laq/train_sthv2.py
 ```
 Note that the current data loader code is based on something-something v2 dataset structure where the directory consists of multiple trajectories and each trajectory contain multiple images. To train on custom dataset, either change the data structure or modify the existing data loading code. 
 
 After training, you can use the trained quantization model as an inverse dynamics model to obtain latent actions for training data. 
 
 ```bash
-python inference_sthv2.py
+uv run --package laq python laq/inference_sthv2.py
 ```
 Add arguments based on the training arguements. For the `input_file` argument, it should be a jsonl file which contains `id`, `image`, `instruction` keys as the metadata and `vision` which is the output of the vqgan model consisting of 256 discrete image tokens as the otuput.
 
@@ -135,7 +143,7 @@ We provide the code to do latent pretraining from pretrained LWM checkpoint. Fir
 We experimented with 8 H100 GPUs for 34 hours. We have empirically observed that 70K steps with a batch size of 256 is enough to get decent performance on downstream tasks after fine-tuning.
 
 ## SIMPLER
-As a reproducible simulation, we release the setup that we tested with. First, install packages required for our latent-pretraining and [SIMPLER](https://github.com/simpler-env/SimplerEnv) following the installation guide. 
+As a reproducible simulation, we release the setup that we tested with. First, install packages required for our latent-pretraining and [SIMPLER](https://github.com/simpler-env/SimplerEnv) using `uv sync` from the root.
 
 The inference script is provided in `scripts/lapa_bridge.sh`.
 ## Acknowledgement 

@@ -1,0 +1,46 @@
+[project]
+name = "laq"
+version = "0.4.2"
+description = "Phenaki - Pytorch"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "accelerate>=0.25.0",
+    "beartype",
+    "einops>=0.7",
+    "ema-pytorch>=0.2.2",
+    "opencv-python",
+    "pillow",
+    "numpy",
+    "torch==2.2.0",
+    "torchvision>=0.16.0",
+    "torchaudio",
+    "torchtyping",
+    "tqdm",
+    "vector-quantize-pytorch>=1.11.8",
+    "wandb",
+    "webdataset",
+    "draccus==0.8.0",
+    "huggingface_hub",
+    "json-numpy",
+    "jsonlines",
+    "matplotlib",
+    "peft==0.11.1",
+    "protobuf",
+    "rich",
+    "sentencepiece==0.1.99",
+    "timm==0.9.10",
+    "tokenizers==0.19.1",
+    "transformers==4.40.1",
+    "tensorflow==2.15.0",
+    "tensorflow_datasets==4.9.3",
+    "tensorflow_graphics==2021.12.3",
+    "dlimp @ git+https://github.com/moojink/dlimp_openvla",
+]
+
+[tool.uv.sources]
+dlimp = { git = "https://github.com/moojink/dlimp_openvla" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

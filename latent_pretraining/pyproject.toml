@@ -1,0 +1,16 @@
+[project]
+name = "latent_pretraining"
+version = "0.1.0"
+description = "Latent Pre-training module for LAPA"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+    "transformers",
+    "einops",
+    "numpy",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

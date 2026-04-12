@@ -1,12 +1,37 @@
-[build-system]
-requires = ["setuptools>=62.3.0"]
-build-backend = "setuptools.build_meta"
+[project]
+name = "mani_skill2_real2sim"
+version = "0.5.3"
+description = "ManiSkill2-Real2Sim: Simulated Manipulation Evaluation Environments build on ManiSkill2 and SAPIEN."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "gymnasium>=0.28.1",
+    "sapien==2.2.2",
+    "h5py",
+    "pyyaml",
+    "tqdm",
+    "GitPython",
+    "tabulate",
+    "gdown>=4.6.0",
+    "transforms3d",
+    "opencv-python",
+    "imageio",
+    "imageio[ffmpeg]",
+    "trimesh",
+    "rtree",
+    "ruckig",
+]
 
 [tool.black]
-line_length = 88     # default
+line_length = 88
 extend-exclude = '''^/warp_maniskill|^/docs'''
-
 
 [tool.isort]
 profile = "black"
 skip_glob = ["*/build/*", "*/warp_maniskill/*", "*/docs/*", "*/data/*", "*/demos/*"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
