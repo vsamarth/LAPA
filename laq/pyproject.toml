@@ -39,7 +39,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-dlimp = { git = "https://github.com/moojink/dlimp_openvla" }
+dlimp = { git = "https://github.com/kvablack/dlimp", rev = "d08da3852c149548aaa8551186d619d87375df08" }
 
 [build-system]
 requires = ["hatchling"]
