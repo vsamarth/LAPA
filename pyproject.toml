@@ -23,8 +23,8 @@ dependencies = [
     "imageio[ffmpeg]",
     "decord",
     "tiktoken",
-    "jax[cuda12]==0.4.23",
-    "tensorflow[and-cuda]",
+    "jax==0.4.23",
+    "tensorflow",
     "scipy==1.12.0",
     "albumentations",
     "uvicorn",
@@ -50,12 +50,12 @@ url = "https://storage.googleapis.com/jax-releases/jax_cuda_releases.html"
 explicit = true
 
 [tool.uv.sources]
-tux = { git = "https://github.com/lhao499/tux.git" }
+tux = { git = "https://github.com/lhao499/tux.git"}
 laq = { workspace = true }
 simpler_env = { workspace = true }
 mani_skill2_real2sim = { workspace = true }
 latent_pretraining = { workspace = true }
-"jax[cuda12]" = { index = "jax-cuda-releases" }
+jax = { index = "jax-cuda-releases" }
 
 [build-system]
 requires = ["hatchling"]
