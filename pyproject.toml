@@ -23,7 +23,7 @@ dependencies = [
     "imageio[ffmpeg]",
     "decord",
     "tiktoken",
-    "jax==0.4.23",
+    "jax",
     "tensorflow==2.15.0",
     "scipy==1.12.0",
     "albumentations",
