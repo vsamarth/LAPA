@@ -44,3 +44,9 @@ dlimp = { git = "https://github.com/kvablack/dlimp", rev = "d08da3852c149548aaa8
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
