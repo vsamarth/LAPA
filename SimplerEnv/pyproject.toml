@@ -20,7 +20,7 @@ dependencies = [
     "dlimp @ git+https://github.com/kvablack/dlimp@d08da3852c149548aaa8551186d619d87375df08",
     "plotly",
     "distrax==0.1.5",
-    "flax==0.8.1",
+    "flax",
     "ml_collections",
     "wandb",
     "einops",

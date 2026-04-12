@@ -5,7 +5,7 @@ description = "Latent Action Pre-Training (LAPA)"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "flax==0.7.0",
+    "flax",
     "optax==0.1.7",
     "chex==0.1.82",
     "einops",
