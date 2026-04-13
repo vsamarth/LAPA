@@ -22,8 +22,8 @@ dependencies = [
     "ipdb",
     "imageio[ffmpeg]",
     "tiktoken",
-    "jax[cuda12]<0.4.30",
-    "jaxlib[cuda12]<0.4.30",
+    "jax<0.4.30",
+    "jaxlib<0.4.30",
     "scipy==1.12.0",
     "albumentations",
     "uvicorn",
@@ -43,13 +43,6 @@ members = [
 tux = { git = "https://github.com/lhao499/tux.git"}
 laq = { workspace = true }
 latent_pretraining = { workspace = true }
-jax = { index = "jax-cuda" }
-jaxlib = { index = "jax-cuda" }
-
-[[tool.uv.index]]
-url = "https://storage.googleapis.com/jax-releases/jax_cuda_releases.html"
-name = "jax-cuda"
-explicit = true
 
 [build-system]
 requires = ["hatchling"]
