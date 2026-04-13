@@ -22,7 +22,7 @@ dependencies = [
     "ipdb",
     "imageio[ffmpeg]",
     "tiktoken",
-    "jax[cuda12]>=0.4.20,<0.4.30",
+    "jax>=0.4.20,<0.4.30",
     "scipy==1.12.0",
     "albumentations",
     "uvicorn",
@@ -30,14 +30,6 @@ dependencies = [
     "tux @ git+https://github.com/lhao499/tux.git",
     "laq",
     "latent_pretraining",
-]
-
-[project.optional-dependencies]
-cuda = [
-    "torch==2.2.0+cu121",
-    "torchvision>=0.16.0+cu121", 
-    "torchaudio==2.2.0+cu121",
-    "jaxlib[cuda12]>=0.4.20,<0.4.30",
 ]
 
 [tool.uv.workspace]
