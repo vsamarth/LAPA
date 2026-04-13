@@ -22,13 +22,16 @@ dependencies = [
     "ipdb",
     "imageio[ffmpeg]",
     "tiktoken",
-    "jax<0.4.30",
-    "jaxlib<0.4.30",
+    "jax[cuda12]>=0.4.35",
+    "jaxlib[cuda12]>=0.4.35",
     "scipy==1.12.0",
     "albumentations",
     "uvicorn",
     "fastapi",
     "tux @ git+https://github.com/lhao499/tux.git",
+    "torch",
+    "torchvision",
+    "torchaudio",
     "laq",
     "latent_pretraining",
 ]
@@ -43,6 +46,13 @@ members = [
 tux = { git = "https://github.com/lhao499/tux.git"}
 laq = { workspace = true }
 latent_pretraining = { workspace = true }
+torch = { index = "pytorch-cuda" }
+torchvision = { index = "pytorch-cuda" }
+torchaudio = { index = "pytorch-cuda" }
+
+[[tool.uv.index]]
+url = "https://download.pytorch.org/whl/cu121"
+name = "pytorch-cuda"
 
 [build-system]
 requires = ["hatchling"]
